@@ -10,14 +10,14 @@ import UIKit
 
 class CharacterListViewController: UITableViewController {
 
+    var characterNames: [String] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        if let jsonString = performRequest(with: urlForCall()) {
+            print("received: \(jsonString)")
+        }
     }
 
     // MARK: - Table view data source
@@ -35,6 +35,28 @@ class CharacterListViewController: UITableViewController {
 
         return cell
     }
+    
+    func urlForCall() -> URL {
+        let urlString = "https://swapi.co/api/films/1/"
+        let url = URL(string: urlString)
+        return url!
+    }
+    
+    func performRequest(with url: URL) -> String? {
+        
+        characterNames = []
+        
+        do {
+            return try String(contentsOf: url, encoding: .utf8)
+        } catch {
+            print("")
+            return nil
+        }
+        
+        
+        //tableView.reloadData()
+    }
+    
 
     /*
     // MARK: - Navigation
