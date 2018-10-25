@@ -10,12 +10,16 @@ import UIKit
 
 class CharacterListViewController: UITableViewController {
 
+    // MARK: Properties
+    
     var characterURLs: [String] = []
     var characterData: [CharacterData] = []
     var results: FilmData?
     let filmURL = "https://swapi.co/api/films/2/"
     var selectedIndex = 0
     var isLoading = false
+    
+    // MARK: Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +34,12 @@ class CharacterListViewController: UITableViewController {
         }
     }
 
-    // MARK: - Table view data source
+}
 
+// MARK: TableView Methods
+
+extension CharacterListViewController {
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isLoading {
             return 1
@@ -39,18 +47,17 @@ class CharacterListViewController: UITableViewController {
             return characterData.count
         }
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterCell", for: indexPath)
-
+        
         if isLoading {
             cell.textLabel?.text = "Loading..."
         }
         else {
             cell.textLabel?.text = characterData[indexPath.row].name
         }
-
+        
         return cell
     }
     
@@ -58,6 +65,16 @@ class CharacterListViewController: UITableViewController {
         selectedIndex = indexPath.row
         return indexPath
     }
+    
+    func useLargeTitles() {
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+}
+
+// MARK: API Methods
+
+extension CharacterListViewController {
     
     func getCharacterURLs() {
         if let data = performRequest(with: urlForCall(from: filmURL)) {
@@ -87,6 +104,14 @@ class CharacterListViewController: UITableViewController {
             showNetworkError()
             return nil
         }
+    }
+    
+    func showNetworkError() {
+        let alert = UIAlertController(title: "Error", message: "There was a problem accessing the Star Wars API. Please try again.", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
     }
     
     func parseFilmData(data: Data) -> FilmData? {
@@ -128,10 +153,6 @@ class CharacterListViewController: UITableViewController {
         return extractName(from: data)!
     }
     
-    func useLargeTitles() {
-        navigationController?.navigationBar.prefersLargeTitles = true
-    }
-    
     func correctCharacterDetails() {
         for character in characterData {
             character.homeworld = getCharacterDetailString(from: character.homeworld)
@@ -139,21 +160,17 @@ class CharacterListViewController: UITableViewController {
         }
     }
     
-    func showNetworkError() {
-        let alert = UIAlertController(title: "Error", message: "There was a problem accessing the Star Wars API. Please try again.", preferredStyle: .alert)
-        
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
-    }
+}
 
-    // MARK: - Navigation
+// MARK: Navigation
 
+extension CharacterListViewController {
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ListToDetail" {
             guard let detailView = segue.destination as? CharacterDetailViewController else { return }
             detailView.character = characterData[selectedIndex]
         }
     }
-
+    
 }
