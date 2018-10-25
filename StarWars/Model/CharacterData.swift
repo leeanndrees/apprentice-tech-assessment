@@ -7,3 +7,13 @@
 //
 
 import Foundation
+
+class CharacterData: Codable {
+    
+    var name = ""
+    var birth_year = ""
+    var gender = ""
+    var homeworld = ""
+    var species = [""]
+    
+}
