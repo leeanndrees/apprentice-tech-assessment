@@ -9,28 +9,37 @@
 import UIKit
 
 class CharacterDetailViewController: UITableViewController {
+    
+    var character: CharacterData?
+    var characterDetails: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        populateDetailsArray()
+        tableView.reloadData()
+    }
+    
+    func populateDetailsArray() {
+        if let characterInfo = character {
+            characterDetails.append(characterInfo.name)
+            characterDetails.append(characterInfo.birth_year)
+            characterDetails.append(characterInfo.gender)
+            characterDetails.append(characterInfo.homeworld)
+            characterDetails.append(characterInfo.species[0])
+        }
     }
 
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+
+        return characterDetails.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath)
 
-        // Configure the cell...
+        cell.textLabel?.text = characterDetails[indexPath.row]
 
         return cell
     }

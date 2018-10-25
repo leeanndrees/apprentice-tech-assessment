@@ -84,7 +84,6 @@
 			children = (
 				439E49E7218108E200E60A32 /* LaunchScreen.storyboard */,
 				439E49E2218108E100E60A32 /* Main.storyboard */,
-				43E26D56218216D000FF9E30 /* CharacterDetailViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -92,6 +91,7 @@
 		439E49F421810BCE00E60A32 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				43E26D56218216D000FF9E30 /* CharacterDetailViewController.swift */,
 				439E49F021810B2600E60A32 /* CharacterListViewController.swift */,
 			);
 			path = Controller;
