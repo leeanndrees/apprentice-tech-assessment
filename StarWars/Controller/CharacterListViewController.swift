@@ -15,16 +15,17 @@ class CharacterListViewController: UITableViewController {
     var results: FilmData?
     let filmURL = "https://swapi.co/api/films/2/"
     var selectedIndex = 0
+    var isLoading = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         useLargeTitles()
-        
+        isLoading = true
         DispatchQueue.main.async {
             self.getCharacterURLs()
             self.getCharacterData()
             self.correctCharacterDetails()
-            
+            self.isLoading = false
             self.tableView.reloadData()
         }
     }
@@ -32,15 +33,23 @@ class CharacterListViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return characterData.count
+        if isLoading {
+            return 1
+        } else {
+            return characterData.count
+        }
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterCell", for: indexPath)
 
-        cell.textLabel?.text = characterData[indexPath.row].name
+        if isLoading {
+            cell.textLabel?.text = "Loading..."
+        }
+        else {
+            cell.textLabel?.text = characterData[indexPath.row].name
+        }
 
         return cell
     }
