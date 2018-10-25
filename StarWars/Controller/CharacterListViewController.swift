@@ -72,7 +72,7 @@ class CharacterListViewController: UITableViewController {
         do {
             return try Data(contentsOf: url)
         } catch {
-            print("Download error: \(error.localizedDescription)")
+            showNetworkError()
             return nil
         }
     }
@@ -116,7 +116,6 @@ class CharacterListViewController: UITableViewController {
         return extractName(from: data)!
     }
     
-    
     func useLargeTitles() {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
@@ -128,6 +127,13 @@ class CharacterListViewController: UITableViewController {
         }
     }
     
+    func showNetworkError() {
+        let alert = UIAlertController(title: "Error", message: "There was a problem accessing the Star Wars API. Please try again.", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
 
     // MARK: - Navigation
 
