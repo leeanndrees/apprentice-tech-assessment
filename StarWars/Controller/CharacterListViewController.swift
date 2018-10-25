@@ -10,17 +10,30 @@ import UIKit
 
 class CharacterListViewController: UITableViewController {
 
+    var characterURLs: [String] = []
     var characterNames: [String] = []
     var results: FilmData?
+    let filmURL = "https://swapi.co/api/films/2/"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let data = performRequest(with: urlForCall()) {
-            let parsed = parse(data: data)!
+        if let data = performRequest(with: urlForCall(from: filmURL)) {
+            let parsed = parseFilmData(data: data)!
             print("parsed: \(parsed)")
-            characterNames = parsed.characters
+            characterURLs = parsed.characters
         }
+        
+        for url in characterURLs {
+            if let data = performRequest(with: urlForCall(from: url)) {
+                let parsed = parseCharacterData(data: data)
+                let name = parsed?.name
+                characterNames.append(name!)
+            }
+        }
+        
+        tableView.reloadData()
+        
     }
 
     // MARK: - Table view data source
