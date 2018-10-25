@@ -7,3 +7,10 @@
 //
 
 import Foundation
+
+class FilmData: Codable {
+ 
+    var title = ""
+    var characters: [String] = []
+    
+}

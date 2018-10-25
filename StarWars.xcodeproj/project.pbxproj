@@ -12,6 +12,8 @@
 		439E49E6218108E200E60A32 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 439E49E5218108E200E60A32 /* Assets.xcassets */; };
 		439E49E9218108E200E60A32 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 439E49E7218108E200E60A32 /* LaunchScreen.storyboard */; };
 		439E49F121810B2600E60A32 /* CharacterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439E49F021810B2600E60A32 /* CharacterListViewController.swift */; };
+		43E26D532182081900FF9E30 /* CharacterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E26D522182081900FF9E30 /* CharacterData.swift */; };
+		43E26D552182082200FF9E30 /* FilmData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E26D542182082200FF9E30 /* FilmData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		439E49E8218108E200E60A32 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		439E49EA218108E200E60A32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		439E49F021810B2600E60A32 /* CharacterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewController.swift; sourceTree = "<group>"; };
+		43E26D522182081900FF9E30 /* CharacterData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterData.swift; sourceTree = "<group>"; };
+		43E26D542182082200FF9E30 /* FilmData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,8 @@
 		439E49F221810BBF00E60A32 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				43E26D522182081900FF9E30 /* CharacterData.swift */,
+				43E26D542182082200FF9E30 /* FilmData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -161,6 +167,8 @@
 			files = (
 				439E49F121810B2600E60A32 /* CharacterListViewController.swift in Sources */,
 				439E49DF218108E100E60A32 /* AppDelegate.swift in Sources */,
+				43E26D532182081900FF9E30 /* CharacterData.swift in Sources */,
+				43E26D552182082200FF9E30 /* FilmData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
