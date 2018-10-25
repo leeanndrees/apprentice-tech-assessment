@@ -25,7 +25,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="VGJ-yf-BUY" kind="show" id="9TB-WY-BJG"/>
+                                    <segue destination="VGJ-yf-BUY" kind="show" identifier="ListToDetail" id="9TB-WY-BJG"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
