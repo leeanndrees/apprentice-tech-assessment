@@ -39,29 +39,35 @@ class CharacterListViewController: UITableViewController {
         return cell
     }
     
-    func urlForCall() -> URL {
-        let urlString = "https://swapi.co/api/films/2/"
-        let url = URL(string: urlString)
+    func urlForCall(from string: String) -> URL {
+        let url = URL(string: string)
         return url!
     }
     
     func performRequest(with url: URL) -> Data? {
-        
-        characterNames = []
-        
         do {
             return try Data(contentsOf: url)
         } catch {
             print("Download error: \(error.localizedDescription)")
             return nil
         }
-        //tableView.reloadData()
     }
     
-    func parse(data: Data) -> FilmData? {
+    func parseFilmData(data: Data) -> FilmData? {
         do {
             let decoder = JSONDecoder()
             let result = try decoder.decode(FilmData.self, from: data)
+            return result
+        } catch {
+            print("JSON Error: \(error)")
+            return nil
+        }
+    }
+    
+    func parseCharacterData(data: Data) -> CharacterData? {
+        do {
+            let decoder = JSONDecoder()
+            let result = try decoder.decode(CharacterData.self, from: data)
             return result
         } catch {
             print("JSON Error: \(error)")
