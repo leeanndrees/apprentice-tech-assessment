@@ -11,7 +11,7 @@ import UIKit
 class CharacterListViewController: UITableViewController {
 
     var characterURLs: [String] = []
-    var characterNames: [String] = []
+    var characterData: [CharacterData] = []
     var results: FilmData?
     let filmURL = "https://swapi.co/api/films/2/"
     
@@ -20,15 +20,13 @@ class CharacterListViewController: UITableViewController {
         
         if let data = performRequest(with: urlForCall(from: filmURL)) {
             let parsed = parseFilmData(data: data)!
-            print("parsed: \(parsed)")
             characterURLs = parsed.characters
         }
         
         for url in characterURLs {
             if let data = performRequest(with: urlForCall(from: url)) {
                 let parsed = parseCharacterData(data: data)
-                let name = parsed?.name
-                characterNames.append(name!)
+                characterData.append(parsed!)
             }
         }
         
@@ -40,14 +38,14 @@ class CharacterListViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return characterNames.count
+        return characterData.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterCell", for: indexPath)
 
-        cell.textLabel?.text = characterNames[indexPath.row]
+        cell.textLabel?.text = characterData[indexPath.row].name
 
         return cell
     }
