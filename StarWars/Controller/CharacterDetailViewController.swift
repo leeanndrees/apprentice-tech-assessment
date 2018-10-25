@@ -24,8 +24,8 @@ class CharacterDetailViewController: UITableViewController {
             characterDetails.append(characterInfo.name)
             characterDetails.append(characterInfo.birth_year)
             characterDetails.append(characterInfo.gender)
-            characterDetails.append(getCharacterHomeworld(from: characterInfo.homeworld))
-            characterDetails.append(characterInfo.species[0])
+            characterDetails.append(getCharacterDetailString(from: characterInfo.homeworld))
+            characterDetails.append(getCharacterDetailString(from: characterInfo.species[0]))
         }
     }
     
@@ -49,7 +49,7 @@ class CharacterDetailViewController: UITableViewController {
         }
     }
     
-    func getCharacterHomeworld(from urlString: String) -> String {
+    func getCharacterDetailString(from urlString: String) -> String {
         let url = URL(string: urlString)!
         let data = performRequest(with: url)!
         return extractName(from: data)!
