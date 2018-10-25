@@ -20,17 +20,9 @@ class CharacterListViewController: UITableViewController {
         super.viewDidLoad()
         useLargeTitles()
         
-        if let data = performRequest(with: urlForCall(from: filmURL)) {
-            let parsed = parseFilmData(data: data)!
-            characterURLs = parsed.characters
-        }
+        getCharacterURLs()
         
-        for url in characterURLs {
-            if let data = performRequest(with: urlForCall(from: url)) {
-                let parsed = parseCharacterData(data: data)
-                characterData.append(parsed!)
-            }
-        }
+        getCharacterData()
         
         correctCharacterDetails()
         
@@ -57,6 +49,22 @@ class CharacterListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         selectedIndex = indexPath.row
         return indexPath
+    }
+    
+    func getCharacterURLs() {
+        if let data = performRequest(with: urlForCall(from: filmURL)) {
+            let parsed = parseFilmData(data: data)!
+            characterURLs = parsed.characters
+        }
+    }
+    
+    func getCharacterData() {
+        for url in characterURLs {
+            if let data = performRequest(with: urlForCall(from: url)) {
+                let parsed = parseCharacterData(data: data)
+                characterData.append(parsed!)
+            }
+        }
     }
     
     func urlForCall(from string: String) -> URL {
