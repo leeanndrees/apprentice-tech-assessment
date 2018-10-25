@@ -11,12 +11,15 @@ import UIKit
 class CharacterListViewController: UITableViewController {
 
     var characterNames: [String] = []
+    var results: FilmData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let jsonString = performRequest(with: urlForCall()) {
-            print("received: \(jsonString)")
+        if let data = performRequest(with: urlForCall()) {
+            let parsed = parse(data: data)!
+            print("parsed: \(parsed)")
+            characterNames = parsed.characters
         }
     }
 
@@ -24,14 +27,14 @@ class CharacterListViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        return characterNames.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterCell", for: indexPath)
 
-        cell.textLabel?.text = "hi"
+        cell.textLabel?.text = characterNames[indexPath.row]
 
         return cell
     }
@@ -55,7 +58,16 @@ class CharacterListViewController: UITableViewController {
         //tableView.reloadData()
     }
     
-    
+    func parse(data: Data) -> FilmData? {
+        do {
+            let decoder = JSONDecoder()
+            let result = try decoder.decode(FilmData.self, from: data)
+            return result
+        } catch {
+            print("JSON Error: \(error)")
+            return nil
+        }
+    }
     
 
     /*
