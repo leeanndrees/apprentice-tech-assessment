@@ -1,5 +1,5 @@
 //
-//  CharacterData.swift
+//  FilmData.swift
 //  StarWars
 //
 //  Created by DetroitLabs on 10/25/18.
