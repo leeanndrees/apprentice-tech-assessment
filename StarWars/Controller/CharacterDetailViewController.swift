@@ -10,8 +10,12 @@ import UIKit
 
 class CharacterDetailViewController: UITableViewController {
     
+    // MARK: Properties
+    
     var character: CharacterData?
     var characterDetails: [String] = []
+    
+    // MARK: Lifecycle Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,8 +23,37 @@ class CharacterDetailViewController: UITableViewController {
         populateDetailsArray()
         tableView.reloadData()
     }
+
+}
+
+// MARK: TableView Methods
+
+extension CharacterDetailViewController {
     
-    func populateDetailsArray() {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return characterDetails.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath)
+        
+        cell.textLabel?.text = characterDetails[indexPath.row]
+        
+        return cell
+    }
+    
+    func dontUseLargeTitles() {
+        navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    
+}
+
+// MARK: Private Implementation
+
+extension CharacterDetailViewController {
+    
+    private func populateDetailsArray() {
         if let characterInfo = character {
             characterDetails.append(characterInfo.nameDescription)
             characterDetails.append(characterInfo.birthYearDescription)
@@ -30,24 +63,4 @@ class CharacterDetailViewController: UITableViewController {
         }
     }
     
-    func dontUseLargeTitles() {
-        navigationController?.navigationBar.prefersLargeTitles = false
-    }
-    
-
-    // MARK: - Table view data source
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        return characterDetails.count
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath)
-
-        cell.textLabel?.text = characterDetails[indexPath.row]
-
-        return cell
-    }
-
 }
