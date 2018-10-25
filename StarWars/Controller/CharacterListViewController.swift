@@ -14,6 +14,7 @@ class CharacterListViewController: UITableViewController {
     var characterData: [CharacterData] = []
     var results: FilmData?
     let filmURL = "https://swapi.co/api/films/2/"
+    var selectedIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +49,11 @@ class CharacterListViewController: UITableViewController {
         cell.textLabel?.text = characterData[indexPath.row].name
 
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        selectedIndex = indexPath.row
+        return indexPath
     }
     
     func urlForCall(from string: String) -> URL {
@@ -92,7 +98,7 @@ class CharacterListViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ListToDetail" {
             guard let detailView = segue.destination as? CharacterDetailViewController else { return }
-            detailView.character = characterData[0]
+            detailView.character = characterData[selectedIndex]
         }
     }
 
