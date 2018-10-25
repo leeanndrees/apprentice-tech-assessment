@@ -14,6 +14,7 @@
 		439E49F121810B2600E60A32 /* CharacterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439E49F021810B2600E60A32 /* CharacterListViewController.swift */; };
 		43E26D532182081900FF9E30 /* CharacterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E26D522182081900FF9E30 /* CharacterData.swift */; };
 		43E26D552182082200FF9E30 /* FilmData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E26D542182082200FF9E30 /* FilmData.swift */; };
+		43E26D57218216D000FF9E30 /* CharacterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E26D56218216D000FF9E30 /* CharacterDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		439E49F021810B2600E60A32 /* CharacterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewController.swift; sourceTree = "<group>"; };
 		43E26D522182081900FF9E30 /* CharacterData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterData.swift; sourceTree = "<group>"; };
 		43E26D542182082200FF9E30 /* FilmData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmData.swift; sourceTree = "<group>"; };
+		43E26D56218216D000FF9E30 /* CharacterDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 			children = (
 				439E49E7218108E200E60A32 /* LaunchScreen.storyboard */,
 				439E49E2218108E100E60A32 /* Main.storyboard */,
+				43E26D56218216D000FF9E30 /* CharacterDetailViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43E26D57218216D000FF9E30 /* CharacterDetailViewController.swift in Sources */,
 				439E49F121810B2600E60A32 /* CharacterListViewController.swift in Sources */,
 				439E49DF218108E100E60A32 /* AppDelegate.swift in Sources */,
 				43E26D532182081900FF9E30 /* CharacterData.swift in Sources */,
