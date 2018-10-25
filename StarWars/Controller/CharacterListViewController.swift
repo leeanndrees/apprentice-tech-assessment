@@ -19,6 +19,7 @@ class CharacterListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         useLargeTitles()
+        
         DispatchQueue.main.async {
             self.getCharacterURLs()
             self.getCharacterData()
@@ -26,11 +27,6 @@ class CharacterListViewController: UITableViewController {
             
             self.tableView.reloadData()
         }
-//        getCharacterURLs()
-//        getCharacterData()
-//        correctCharacterDetails()
-//
-//        tableView.reloadData()
     }
 
     // MARK: - Table view data source
