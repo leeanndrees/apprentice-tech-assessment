@@ -24,10 +24,37 @@ class CharacterDetailViewController: UITableViewController {
             characterDetails.append(characterInfo.name)
             characterDetails.append(characterInfo.birth_year)
             characterDetails.append(characterInfo.gender)
-            characterDetails.append(characterInfo.homeworld)
+            characterDetails.append(getCharacterHomeworld(from: characterInfo.homeworld))
             characterDetails.append(characterInfo.species[0])
         }
     }
+    
+    func performRequest(with url: URL) -> Data? {
+        do {
+            return try Data(contentsOf: url)
+        } catch {
+            print("Download error: \(error.localizedDescription)")
+            return nil
+        }
+    }
+    
+    func extractName(from data: Data) -> String? {
+        do {
+            let decoder = JSONDecoder()
+            let result = try decoder.decode(NameData.self, from: data)
+            return result.name
+        } catch {
+            print("JSON Error: \(error)")
+            return nil
+        }
+    }
+    
+    func getCharacterHomeworld(from urlString: String) -> String {
+        let url = URL(string: urlString)!
+        let data = performRequest(with: url)!
+        return extractName(from: data)!
+    }
+    
 
     // MARK: - Table view data source
 
