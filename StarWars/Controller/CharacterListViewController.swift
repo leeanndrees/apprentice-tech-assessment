@@ -32,6 +32,8 @@ class CharacterListViewController: UITableViewController {
             }
         }
         
+        correctCharacterDetails()
+        
         tableView.reloadData()
         
     }
@@ -93,8 +95,33 @@ class CharacterListViewController: UITableViewController {
         }
     }
     
+    func extractName(from data: Data) -> String? {
+        do {
+            let decoder = JSONDecoder()
+            let result = try decoder.decode(NameData.self, from: data)
+            return result.name
+        } catch {
+            print("JSON Error: \(error)")
+            return nil
+        }
+    }
+    
+    func getCharacterDetailString(from urlString: String) -> String {
+        let url = URL(string: urlString)!
+        let data = performRequest(with: url)!
+        return extractName(from: data)!
+    }
+    
+    
     func useLargeTitles() {
         navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    func correctCharacterDetails() {
+        for character in characterData {
+            character.homeworld = getCharacterDetailString(from: character.homeworld)
+            character.species = [getCharacterDetailString(from: character.species[0])]
+        }
     }
     
 
