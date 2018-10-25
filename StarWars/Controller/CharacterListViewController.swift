@@ -18,6 +18,7 @@ class CharacterListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        useLargeTitles()
         
         if let data = performRequest(with: urlForCall(from: filmURL)) {
             let parsed = parseFilmData(data: data)!
@@ -90,6 +91,10 @@ class CharacterListViewController: UITableViewController {
             print("JSON Error: \(error)")
             return nil
         }
+    }
+    
+    func useLargeTitles() {
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
 

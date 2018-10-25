@@ -15,6 +15,7 @@ class CharacterDetailViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        dontUseLargeTitles()
         populateDetailsArray()
         tableView.reloadData()
     }
@@ -53,6 +54,10 @@ class CharacterDetailViewController: UITableViewController {
         let url = URL(string: urlString)!
         let data = performRequest(with: url)!
         return extractName(from: data)!
+    }
+    
+    func dontUseLargeTitles() {
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
     
 
