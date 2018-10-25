@@ -22,11 +22,11 @@ class CharacterDetailViewController: UITableViewController {
     
     func populateDetailsArray() {
         if let characterInfo = character {
-            characterDetails.append(characterInfo.name)
-            characterDetails.append(characterInfo.birth_year)
-            characterDetails.append(characterInfo.gender)
-            characterDetails.append(characterInfo.homeworld)
-            characterDetails.append(characterInfo.species[0])
+            characterDetails.append(characterInfo.nameDescription)
+            characterDetails.append(characterInfo.birthYearDescription)
+            characterDetails.append(characterInfo.genderDescription)
+            characterDetails.append(characterInfo.homeworldDescription)
+            characterDetails.append(characterInfo.speciesDescription)
         }
     }
     

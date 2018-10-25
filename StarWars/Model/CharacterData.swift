@@ -16,4 +16,23 @@ class CharacterData: Codable {
     var homeworld = ""
     var species = [""]
     
+    var nameDescription: String {
+        return "Name: \(name)"
+    }
+    
+    var birthYearDescription: String {
+        return "Birth Year: \(birth_year)"
+    }
+    
+    var genderDescription: String {
+        return "Gender: \(gender)"
+    }
+    
+    var homeworldDescription: String {
+        return "Homeworld: \(homeworld)"
+    }
+    
+    var speciesDescription: String {
+        return "Species: \(species[0])"
+    }
 }
