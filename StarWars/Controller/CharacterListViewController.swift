@@ -9,7 +9,7 @@
 import UIKit
 
 class CharacterListViewController: UITableViewController {
-
+    
     // MARK: Properties
     
     var characterURLs: [String] = []
@@ -24,21 +24,16 @@ class CharacterListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         useLargeTitles()
-        performRequestURLSession(with: filmURL)
-        tableView.reloadData()
-        
-        
-        
-//        isLoading = true
-//        DispatchQueue.main.async {
-//            self.getCharacterURLs()
-//            self.getCharacterData()
-//            self.correctCharacterDetails()
-//            self.isLoading = false
-//            self.tableView.reloadData()
-//        }
+        isLoading = true
+        DispatchQueue.main.async {
+            self.getCharacterURLs()
+            self.getCharacterData()
+            self.correctCharacterDetails()
+            self.isLoading = false
+            self.tableView.reloadData()
+        }
     }
-
+    
 }
 
 // MARK: TableView Methods
@@ -80,37 +75,6 @@ extension CharacterListViewController {
 // MARK: API Methods
 
 extension CharacterListViewController {
-    
-    func performRequestURLSession(with urlString: String) {
-        let url = urlForCall(from: urlString)
-        let session = URLSession.shared
-        
-        let dataTask = session.dataTask(with: url, completionHandler: { data, response, error in
-            if let error = error {
-                print("Failure! \(error)")
-            } else if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
-                if let data = data {
-                    self.results = self.parseFilmData(data: data)
-                    self.characterURLs = (self.results?.characters)!
-                    self.getCharacterData()
-                    DispatchQueue.main.async {
-                        self.isLoading = false
-                        self.tableView.reloadData()
-                    }
-                    return
-                }
-            } else {
-                print("Success! \(response!)")
-            }
-            DispatchQueue.main.async {
-                self.isLoading = false
-                self.tableView.reloadData()
-                self.showNetworkError()
-            }
-        })
-        dataTask.resume()
-    }
-    
     
     func getCharacterURLs() {
         if let data = performRequest(with: urlForCall(from: filmURL)) {
