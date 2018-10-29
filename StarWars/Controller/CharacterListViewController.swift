@@ -67,7 +67,7 @@ extension CharacterListViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
-    func useLargeTitles() {
+    private func useLargeTitles() {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
 
@@ -77,12 +77,12 @@ extension CharacterListViewController {
 
 extension CharacterListViewController {
     
-    func urlForCall(from string: String) -> URL {
+    private func urlForCall(from string: String) -> URL {
         let url = URL(string: string)
         return url!
     }
     
-    func performRequest(with url: URL) -> Data? {
+    private func performRequest(with url: URL) -> Data? {
         do {
             return try Data(contentsOf: url)
         } catch {
@@ -91,7 +91,7 @@ extension CharacterListViewController {
         }
     }
     
-    func showNetworkError() {
+    private func showNetworkError() {
         let alert = UIAlertController(title: "Error", message: "There was a problem accessing the Star Wars API. Please try again.", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -99,7 +99,7 @@ extension CharacterListViewController {
         present(alert, animated: true, completion: nil)
     }
 
-    func getCharacterURLData(from urlString: String) {
+    private func getCharacterURLData(from urlString: String) {
         let url = urlForCall(from: urlString)
         let session = URLSession.shared
 
@@ -128,7 +128,7 @@ extension CharacterListViewController {
         dataTask.resume()
     }
 
-    func getCharacterData() {
+    private func getCharacterData() {
         for url in characterURLs {
             if let data = performRequest(with: urlForCall(from: url)) {
                 let parsed = parseCharacterData(data: data)
@@ -137,7 +137,7 @@ extension CharacterListViewController {
         }
     }
 
-    func parseFilmData(data: Data) -> FilmData? {
+    private func parseFilmData(data: Data) -> FilmData? {
         do {
             let decoder = JSONDecoder()
             let result = try decoder.decode(FilmData.self, from: data)
@@ -148,7 +148,7 @@ extension CharacterListViewController {
         }
     }
 
-    func parseCharacterData(data: Data) -> CharacterData? {
+    private func parseCharacterData(data: Data) -> CharacterData? {
         do {
             let decoder = JSONDecoder()
             let result = try decoder.decode(CharacterData.self, from: data)
@@ -159,7 +159,7 @@ extension CharacterListViewController {
         }
     }
 
-    func extractName(from data: Data) -> String? {
+    private func extractName(from data: Data) -> String? {
         do {
             let decoder = JSONDecoder()
             let result = try decoder.decode(NameData.self, from: data)
@@ -170,13 +170,13 @@ extension CharacterListViewController {
         }
     }
 
-    func getCharacterDetailString(from urlString: String) -> String {
+    private func getCharacterDetailString(from urlString: String) -> String {
         let url = URL(string: urlString)!
         let data = performRequest(with: url)!
         return extractName(from: data)!
     }
 
-    func correctCharacterDetails() {
+    private func correctCharacterDetails() {
         for character in characterData {
             character.homeworld = getCharacterDetailString(from: character.homeworld)
             character.species = [getCharacterDetailString(from: character.species[0])]
