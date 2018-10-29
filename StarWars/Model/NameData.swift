@@ -8,7 +8,7 @@
 
 import Foundation
 
-class NameData: Codable {
+struct NameData: Codable {
     
     var name = ""
     

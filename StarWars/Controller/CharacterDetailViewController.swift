@@ -13,13 +13,12 @@ class CharacterDetailViewController: UITableViewController {
     // MARK: Properties
     
     var character: CharacterData?
-    var characterDetails: [String] = []
+    private var characterDetails: [String] = []
     
     // MARK: Lifecycle Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        dontUseLargeTitles()
         populateDetailsArray()
         tableView.reloadData()
     }
@@ -43,8 +42,8 @@ extension CharacterDetailViewController {
         return cell
     }
     
-    func dontUseLargeTitles() {
-        navigationController?.navigationBar.prefersLargeTitles = false
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }

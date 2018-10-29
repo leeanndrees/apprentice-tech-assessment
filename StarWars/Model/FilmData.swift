@@ -8,7 +8,7 @@
 
 import Foundation
 
-class FilmData: Codable {
+struct FilmData: Codable {
  
     var title = ""
     var characters: [String] = []
