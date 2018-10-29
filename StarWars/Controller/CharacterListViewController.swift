@@ -111,8 +111,8 @@ extension CharacterListViewController {
                 return
             }
 
-            guard let data = data else { return }
-            let parsed = self.parseFilmData(data: data)!
+            guard let data = data else { self.showNetworkError(); return }
+            guard let parsed = self.parseFilmData(data: data) else { self.showNetworkError(); return }
             self.characterURLs = parsed.characters
 
             self.getCharacterData()
