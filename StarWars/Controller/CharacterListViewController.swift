@@ -26,15 +26,6 @@ class CharacterListViewController: UITableViewController {
         useLargeTitles()
         isLoading = true
         getCharacterURLData(from: filmURL)
-        
-        
-//        DispatchQueue.main.async {
-//            print("async time")
-//            self.getCharacterData()
-//            self.correctCharacterDetails()
-//            self.isLoading = false
-//            self.tableView.reloadData()
-//        }
     }
 
 }
