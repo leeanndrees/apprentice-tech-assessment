@@ -12,12 +12,12 @@ class CharacterListViewController: UITableViewController {
 
     // MARK: Properties
 
-    var characterURLs: [String] = []
-    var characterData: [CharacterData] = []
-    var results: FilmData?
-    let filmURL = "https://swapi.co/api/films/2/"
+    private var characterURLs: [String] = []
+    private var characterData: [CharacterData] = []
+    private var results: FilmData?
+    private let filmURL = "https://swapi.co/api/films/2/"
+    private var isLoading = false
     var selectedIndex = 0
-    var isLoading = false
 
     // MARK: Lifecycle Methods
 
