@@ -23,9 +23,12 @@ class CharacterListViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        useLargeTitles()
         isLoading = true
         getCharacterURLData(from: filmURL)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        useLargeTitles()
     }
 
 }
