@@ -24,7 +24,8 @@ class CharacterListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         useLargeTitles()
-        performRequestURLSession(with: filmURL)
+        getCharacterURLData(from: filmURL)
+        getCharacterData()
         tableView.reloadData()
         
         
@@ -81,7 +82,7 @@ extension CharacterListViewController {
 
 extension CharacterListViewController {
     
-    func performRequestURLSession(with urlString: String) {
+    func getCharacterURLData(from urlString: String) {
         let url = urlForCall(from: urlString)
         let session = URLSession.shared
         
@@ -95,10 +96,34 @@ extension CharacterListViewController {
             
             guard let data = data else { return }
             self.getCharacterURLs(from: data)
-            print(self.characterURLs)
         }
         
         dataTask.resume()
+    }
+    
+    func getCharacterDetailData(from urlStringArray: [String]) {
+        
+        for urlString in urlStringArray {
+            let url = urlForCall(from: urlString)
+            
+            let session = URLSession.shared
+            
+            let dataTask = session.dataTask(with: url) { (data, response, error) in
+                
+                if let error = error {
+                    self.showNetworkError()
+                    print("error: \(error)")
+                    return
+                }
+                
+                guard let data = data else { return }
+                let parsed = self.parseCharacterData(data: data)
+                self.characterData.append(parsed!)
+                print(self.characterData[0].name)
+            }
+            
+            dataTask.resume()
+        }
     }
     
     
