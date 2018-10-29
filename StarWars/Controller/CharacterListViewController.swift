@@ -85,38 +85,26 @@ extension CharacterListViewController {
         let url = urlForCall(from: urlString)
         let session = URLSession.shared
         
-        let dataTask = session.dataTask(with: url, completionHandler: { data, response, error in
+        let dataTask = session.dataTask(with: url) { (data, response, error) in
+            
             if let error = error {
-                print("Failure! \(error)")
-            } else if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
-                if let data = data {
-                    self.results = self.parseFilmData(data: data)
-                    self.characterURLs = (self.results?.characters)!
-                    self.getCharacterData()
-                    DispatchQueue.main.async {
-                        self.isLoading = false
-                        self.tableView.reloadData()
-                    }
-                    return
-                }
-            } else {
-                print("Success! \(response!)")
-            }
-            DispatchQueue.main.async {
-                self.isLoading = false
-                self.tableView.reloadData()
                 self.showNetworkError()
+                print("error: \(error)")
+                return
             }
-        })
+            
+            guard let data = data else { return }
+            self.getCharacterURLs(from: data)
+            print(self.characterURLs)
+        }
+        
         dataTask.resume()
     }
     
     
-    func getCharacterURLs() {
-        if let data = performRequest(with: urlForCall(from: filmURL)) {
+    func getCharacterURLs(from data: Data) {
             let parsed = parseFilmData(data: data)!
             characterURLs = parsed.characters
-        }
     }
     
     func getCharacterData() {
