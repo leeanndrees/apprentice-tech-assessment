@@ -76,6 +76,28 @@ extension CharacterListViewController {
 // MARK: API Methods
 
 extension CharacterListViewController {
+    
+    func urlForCall(from string: String) -> URL {
+        let url = URL(string: string)
+        return url!
+    }
+    
+    func performRequest(with url: URL) -> Data? {
+        do {
+            return try Data(contentsOf: url)
+        } catch {
+            showNetworkError()
+            return nil
+        }
+    }
+    
+    func showNetworkError() {
+        let alert = UIAlertController(title: "Error", message: "There was a problem accessing the Star Wars API. Please try again.", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
 
     func getCharacterURLData(from urlString: String) {
         let url = urlForCall(from: urlString)
@@ -106,37 +128,6 @@ extension CharacterListViewController {
         dataTask.resume()
     }
 
-    func getCharacterDetailData(from urlStringArray: [String]) {
-
-        for urlString in urlStringArray {
-            let url = urlForCall(from: urlString)
-
-            let session = URLSession.shared
-
-            let dataTask = session.dataTask(with: url) { (data, response, error) in
-
-                if let error = error {
-                    self.showNetworkError()
-                    print("error: \(error)")
-                    return
-                }
-
-                guard let data = data else { return }
-                let parsed = self.parseCharacterData(data: data)
-                self.characterData.append(parsed!)
-                print(self.characterData[0].name)
-            }
-
-            dataTask.resume()
-        }
-    }
-
-
-    func getCharacterURLs(from data: Data) {
-            let parsed = parseFilmData(data: data)!
-            characterURLs = parsed.characters
-    }
-
     func getCharacterData() {
         for url in characterURLs {
             if let data = performRequest(with: urlForCall(from: url)) {
@@ -144,28 +135,6 @@ extension CharacterListViewController {
                 characterData.append(parsed!)
             }
         }
-    }
-
-    func urlForCall(from string: String) -> URL {
-        let url = URL(string: string)
-        return url!
-    }
-
-    func performRequest(with url: URL) -> Data? {
-        do {
-            return try Data(contentsOf: url)
-        } catch {
-            showNetworkError()
-            return nil
-        }
-    }
-
-    func showNetworkError() {
-        let alert = UIAlertController(title: "Error", message: "There was a problem accessing the Star Wars API. Please try again.", preferredStyle: .alert)
-
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
     }
 
     func parseFilmData(data: Data) -> FilmData? {
