@@ -24,15 +24,12 @@ class CharacterListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         useLargeTitles()
+        isLoading = true
         getCharacterURLData(from: filmURL)
-        getCharacterData()
-        tableView.reloadData()
         
         
-        
-//        isLoading = true
 //        DispatchQueue.main.async {
-//            self.getCharacterURLs()
+//            print("async time")
 //            self.getCharacterData()
 //            self.correctCharacterDetails()
 //            self.isLoading = false
@@ -95,7 +92,17 @@ extension CharacterListViewController {
             }
             
             guard let data = data else { return }
-            self.getCharacterURLs(from: data)
+            let parsed = self.parseFilmData(data: data)!
+            self.characterURLs = parsed.characters
+            
+            self.getCharacterData()
+            self.correctCharacterDetails()
+            
+            DispatchQueue.main.async {
+                self.isLoading = false
+                self.tableView.reloadData()
+            }
+            
         }
         
         dataTask.resume()
