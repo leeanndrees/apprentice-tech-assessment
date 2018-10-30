@@ -11,6 +11,7 @@ import Foundation
 class CharacterData: Codable {
     
     var name = ""
+    var mass = ""
     var birth_year = ""
     var gender = ""
     var homeworld = ""
@@ -18,6 +19,10 @@ class CharacterData: Codable {
     
     var nameDescription: String {
         return "Name: \(name)"
+    }
+    
+    var massDescription: String {
+        return "Mass: \(mass)kg"
     }
     
     var birthYearDescription: String {
