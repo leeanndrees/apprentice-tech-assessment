@@ -171,8 +171,7 @@ extension CharacterListViewController {
     }
 
     private func getCharacterDetailString(from urlString: String) -> String? {
-        guard let url = URL(string: urlString) else { return nil }
-        guard let data = performRequest(with: url) else { return nil }
+        guard let data = performRequest(with: urlForCall(from: urlString)) else { return nil }
         return extractName(from: data)
     }
 
