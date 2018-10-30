@@ -20,6 +20,7 @@ class CharacterDetailViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         populateDetailsArray()
+        print(character!.mass)
         tableView.reloadData()
     }
 
@@ -55,6 +56,7 @@ extension CharacterDetailViewController {
     private func populateDetailsArray() {
         if let characterInfo = character {
             characterDetails.append(characterInfo.nameDescription)
+            characterDetails.append(characterInfo.massDescription)
             characterDetails.append(characterInfo.birthYearDescription)
             characterDetails.append(characterInfo.genderDescription)
             characterDetails.append(characterInfo.homeworldDescription)
