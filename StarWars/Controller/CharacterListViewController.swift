@@ -131,8 +131,8 @@ extension CharacterListViewController {
     private func getCharacterData() {
         for url in characterURLs {
             if let data = performRequest(with: urlForCall(from: url)) {
-                let parsed = parseCharacterData(data: data)
-                characterData.append(parsed!)
+                guard let parsed = parseCharacterData(data: data) else { return }
+                characterData.append(parsed)
             }
         }
     }
@@ -170,16 +170,17 @@ extension CharacterListViewController {
         }
     }
 
-    private func getCharacterDetailString(from urlString: String) -> String {
-        let url = URL(string: urlString)!
-        let data = performRequest(with: url)!
-        return extractName(from: data)!
+    private func getCharacterDetailString(from urlString: String) -> String? {
+        guard let data = performRequest(with: urlForCall(from: urlString)) else { return nil }
+        return extractName(from: data)
     }
 
     private func correctCharacterDetails() {
         for character in characterData {
-            character.homeworld = getCharacterDetailString(from: character.homeworld)
-            character.species = [getCharacterDetailString(from: character.species[0])]
+            guard let newHomeWorld = getCharacterDetailString(from: character.homeworld) else { return }
+            character.homeworld = newHomeWorld
+            guard let newSpecies = getCharacterDetailString(from: character.species[0]) else { return }
+            character.species = [newSpecies]
         }
     }
 
