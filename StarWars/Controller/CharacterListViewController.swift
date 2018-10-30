@@ -131,8 +131,8 @@ extension CharacterListViewController {
     private func getCharacterData() {
         for url in characterURLs {
             if let data = performRequest(with: urlForCall(from: url)) {
-                let parsed = parseCharacterData(data: data)
-                characterData.append(parsed!)
+                guard let parsed = parseCharacterData(data: data) else { return }
+                characterData.append(parsed)
             }
         }
     }
