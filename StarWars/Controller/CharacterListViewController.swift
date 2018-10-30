@@ -116,6 +116,7 @@ extension CharacterListViewController {
             self.characterURLs = parsed.characters
 
             self.getCharacterData()
+            self.getFilmNames()
             self.correctCharacterDetails()
 
             DispatchQueue.main.async {
@@ -134,6 +135,20 @@ extension CharacterListViewController {
                 guard let parsed = parseCharacterData(data: data) else { return }
                 characterData.append(parsed)
             }
+        }
+    }
+    
+    private func getFilmNames() {
+        var filmNames : [String] = []
+        
+        for character in characterData {
+            filmNames = []
+            for url in character.films {
+                guard let data = performRequest(with: urlForCall(from: url)) else { return }
+                guard let filmName = extractTitle(from: data) else { return }
+                filmNames.append(filmName)
+            }
+            character.films = filmNames
         }
     }
 
@@ -164,6 +179,17 @@ extension CharacterListViewController {
             let decoder = JSONDecoder()
             let result = try decoder.decode(NameData.self, from: data)
             return result.name
+        } catch {
+            print("JSON Error: \(error)")
+            return nil
+        }
+    }
+    
+    private func extractTitle(from data: Data) -> String? {
+        do {
+            let decoder = JSONDecoder()
+            let result = try decoder.decode(FilmData.self, from: data)
+            return result.title
         } catch {
             print("JSON Error: \(error)")
             return nil

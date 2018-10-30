@@ -15,6 +15,7 @@ class CharacterData: Codable {
     var birth_year = ""
     var gender = ""
     var homeworld = ""
+    var films = [""]
     var species = [""]
     
     var nameDescription: String {

@@ -20,7 +20,7 @@ class CharacterDetailViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         populateDetailsArray()
-        print(character!.mass)
+        print(character!.films)
         tableView.reloadData()
     }
 
