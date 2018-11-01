@@ -132,7 +132,7 @@ extension CharacterListViewController {
     private func getCharacterData() {
         for url in characterURLs {
             if let data = performRequest(with: urlForCall(from: url)) {
-                guard let parsed = parseCharacterData(data: data) else { return }
+                guard let parsed = parseData(data: data, targetType: CharacterData.self) else { return }
                 characterData.append(parsed)
             }
         }
@@ -167,6 +167,17 @@ extension CharacterListViewController {
         do {
             let decoder = JSONDecoder()
             let result = try decoder.decode(CharacterData.self, from: data)
+            return result
+        } catch {
+            print("JSON Error: \(error)")
+            return nil
+        }
+    }
+    
+    func parseData<T:Decodable>(data: Data, targetType: T.Type) -> T? {
+        do {
+            let decoder = JSONDecoder()
+            let result = try decoder.decode(targetType, from: data)
             return result
         } catch {
             print("JSON Error: \(error)")
